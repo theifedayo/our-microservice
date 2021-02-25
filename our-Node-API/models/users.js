@@ -1,56 +1,69 @@
-const User = require('../models/users')
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 
-
-
-
-exports.register = (req, res)=>{
-	if(!req.body.username || !req.body.email || !req.body.password){
-		return res.status(400).json({
-			success: false,
-			message: "All fields are required"
-		})
+const UserSchema = new mongoose.Schema({
+	username: {
+		type: String,
+		index: true,
+		unique: true
+	},
+	bio: {
+		type: String
+	},
+	profileImage: {
+		type: String
+	},
+	email: {
+		type: String,
+		unique: true
+	},
+	password: {
+		type: String,
+		bcrypt: true
 	}
+})
 
-	const newUser = new User()
-	newUser.username = req.body.username
-	newUser.email = req.body.email
-	newUser.password = req.body.password
 
-	User.createUser(newUser, (err, docs)=>{
-		if(err){
-			throw err
-		}else{
-			const userToken = User.generateJWT()
-			return res.status(200).json({
-				success: true,
-				message: "User created successfully",
-				data: newUser,
-				token: userToken
-			})
-		}
+module.exports = mongoose.model('User', UserSchema)
+
+module.exports.createUser = (newUser, callback)=>{
+	bcrypt.hash(newUser.password, 10, (err, hash)=>{
+		if(err) throw err
+		newUser.password = hash
+
+		//create new user
+		newUser.save(callback)
+	})
+	
+}
+
+module.exports.getUserByUsername = (username, callback)=>{
+	const query = { username: username}
+	User.findOne(query, callback)
+}
+
+module.exports.comparePassword = (candidatePassword, hash, callback)=>{
+	bcrypt.compare(candidatePassword, hash, (err, isMatch)=>{
+		if(err) return callback(err)
+		callback(null, isMatch)
 	})
 }
 
-exports.check = (req, res, next)=>{
-	if(!req.body.username ||  !req.body.password){
-		return res.status(400).json({
-			success: false,
-			message: "All fields are required"
-		})
-	return next()
-	}
+module.exports.getUserById = (id, callback)=>{
+	User.findById(id, callback)
 }
 
-
-
-exports.getLogout = (req, res)=>{
-	req.logout()
-	res.status(200).json({
-		success: true,
-		message: "User logged out successfully",
-	})
+module.exports.generateJWT = ()=>{
+	const expiry = new Date()
+	expiry.setDate(expiry.getDate() + 7)
+	return jwt.sign({
+		_id: this._id,
+		email: this.email,
+		username: this.username,
+		exp: parseInt(expiry.getTime()/1000, 10)
+	}, process.env.JWT_SECRET)
 }
+
 
