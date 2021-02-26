@@ -31,3 +31,17 @@ exports.register = (req, res)=>{
 		}
 	})
 }
+
+
+exports.checkUser = async(req, res)=>{
+	try{
+		await User.findOne({ username: req.params.username}, (err, result)=>{
+			return res.status(200).json({
+				username: req.params.username,
+				data: result
+			})
+		})
+	}catch{
+		res.status(500).json({message: 'Server error'})
+	}
+}

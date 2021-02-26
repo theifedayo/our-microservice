@@ -43,20 +43,20 @@ app.use('/api/v1', require('./routes/users'))
 
 
 
-app.post('*', (req, res, next)=>{
-  res.locals.user = req.user || null
-  next()
-})
+// app.post('*', (req, res, next)=>{
+//   res.locals.user = req.user || null
+//   next()
+// })
 
-app.put('*', (req, res, next)=>{
-  res.locals.user = req.user || null
-  next()
-})
+// app.put('*', (req, res, next)=>{
+//   res.locals.user = req.user || null
+//   next()
+// })
 
-app.delete('*', (req, res, next)=>{
-  res.locals.user = req.user || null
-  next()
-})
+// app.delete('*', (req, res, next)=>{
+//   res.locals.user = req.user || null
+//   next()
+// })
 
 
 
