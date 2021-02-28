@@ -25,7 +25,10 @@ exports.register = (req, res)=>{
 			return res.status(200).json({
 				success: true,
 				message: "User created successfully",
-				data: newUser,
+				data: {
+					username: newUser.username,
+					email: newUser.email
+				},
 				token: userToken
 			})
 		}
