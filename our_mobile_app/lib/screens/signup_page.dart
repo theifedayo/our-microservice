@@ -174,8 +174,9 @@ class _SignupPageState extends State<SignupPage> {
                         setState(() {
                           circular = false ;
                         });
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage(message: 'Your account was successfully created!',
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage(message: 'Your account was successfully created!'
                         )));
+
                       }else{
                         setState(() {
                           circular = false ;

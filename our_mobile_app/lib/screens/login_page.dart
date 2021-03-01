@@ -2,17 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:our_mobile_app/constants.dart';
 import 'after_splash_screen.dart';
 
+
 class LoginPage extends StatefulWidget {
-  LoginPage({ this.message });
+  LoginPage({ this.message, this.show });
   final String message;
+  bool show;
+
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String signupMessage;
+
+
+  @override
+  void initState(){
+    super.initState();
+    updateUI(widget.message);
+  }
+
+  void updateUI(dynamic message){
+    setState(() {
+      signupMessage = message;
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -27,6 +47,19 @@ class _LoginPageState extends State<LoginPage> {
                   },child: Icon(Icons.arrow_back_sharp))
                 ]
               ),
+              signupMessage != null ? Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text('$signupMessage', textAlign: TextAlign.center ,style: TextStyle(
+                        fontFamily: 'Montserrat'
+                    ),),
+                  ),
+                  margin: EdgeInsets.all(15.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6.0),
+                    color: Colors.green[300],
+                  )
+              ): Text(''),
               SizedBox(height: 200,),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
@@ -51,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ),
               ),
+
               Container(
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
                 child: TextField(
