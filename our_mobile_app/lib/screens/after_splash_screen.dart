@@ -26,7 +26,7 @@ class _AfterSplashState extends State<AfterSplash> {
           Padding(
             padding: const EdgeInsets.all(22.0),
             child: Text('Honestly...this app does nothing for now!', style: TextStyle(
-                fontFamily: 'RocknRollOne',
+                fontFamily: 'Montserrat',
                 fontSize: 14.0,
                 color: Colors.grey,
                 fontWeight: FontWeight.bold
@@ -71,7 +71,7 @@ class AfterSplashButton extends StatelessWidget {
                 title: Center(
                   child: Text(buttonText,
                     style: TextStyle(
-                        fontFamily: 'RocknRollOne',
+                        fontFamily: 'Montserrat',
                         fontSize: 15.0,
                         fontWeight: FontWeight.bold
                     ),

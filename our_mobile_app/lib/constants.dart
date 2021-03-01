@@ -12,7 +12,7 @@ const kTextFieldInputDecoration = InputDecoration(
     hintText: 'Enter your username',
     hintStyle: TextStyle(
         color: Colors.white70,
-        fontFamily: 'RocknRollOne'
+        fontFamily: 'Montserrat'
     ),
     border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -26,7 +26,7 @@ const kEmailFieldInputDecoration = InputDecoration(
     hintText: 'Enter your email',
     hintStyle: TextStyle(
         color: Colors.white70,
-        fontFamily: 'RocknRollOne'
+        fontFamily: 'Montserrat'
     ),
     border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -34,13 +34,14 @@ const kEmailFieldInputDecoration = InputDecoration(
     )
 );
 
-const kpasswprdFieldInputDecoration = InputDecoration(
+const kpasswordFieldInputDecoration = InputDecoration(
+    suffixIcon: IconButton(icon: Icon(Icons.visibility_off), onPressed: null),
     filled: true,
     fillColor: kinputColor,
     hintText: 'Enter your password',
     hintStyle: TextStyle(
         color: Colors.white70,
-        fontFamily: 'RocknRollOne'
+        fontFamily: 'Montserrat'
     ),
     border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10.0)),

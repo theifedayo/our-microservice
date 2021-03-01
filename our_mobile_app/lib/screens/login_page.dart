@@ -3,6 +3,9 @@ import 'package:our_mobile_app/constants.dart';
 import 'after_splash_screen.dart';
 
 class LoginPage extends StatefulWidget {
+  LoginPage({ this.message });
+  final String message;
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -67,19 +70,17 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.white70,
                       fontFamily: 'RocknRollOne'
                   ),
-                  decoration: kpasswprdFieldInputDecoration,
+                  decoration: kpasswordFieldInputDecoration,
 
                 ),
               ),
               SizedBox(
                 height: 100,
               ),
-              Expanded(
-                child: AfterSplashButton(buttonText: 'LOGIN', onPress: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage(
-                  )));
-                },),
-              )
+              AfterSplashButton(buttonText: 'LOGIN', onPress: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage(
+                )));
+              },)
             ],
           ),
         ),
