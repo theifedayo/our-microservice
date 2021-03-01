@@ -14,8 +14,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
 
               Row(
@@ -60,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 ),
               ),
+
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: TextField(
@@ -74,10 +74,12 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 100,
               ),
-              AfterSplashButton(buttonText: 'LOGIN', onPress: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage(
-                )));
-              },)
+              Expanded(
+                child: AfterSplashButton(buttonText: 'LOGIN', onPress: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage(
+                  )));
+                },),
+              )
             ],
           ),
         ),

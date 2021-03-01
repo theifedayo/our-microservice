@@ -9,7 +9,21 @@ const kinputColor = Color(0XFF64697f);
 const kTextFieldInputDecoration = InputDecoration(
     filled: true,
     fillColor: kinputColor,
-    hintText: 'Enter username',
+    hintText: 'Enter your username',
+    hintStyle: TextStyle(
+        color: Colors.white70,
+        fontFamily: 'RocknRollOne'
+    ),
+    border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        borderSide: BorderSide.none
+    )
+);
+
+const kEmailFieldInputDecoration = InputDecoration(
+    filled: true,
+    fillColor: kinputColor,
+    hintText: 'Enter your email',
     hintStyle: TextStyle(
         color: Colors.white70,
         fontFamily: 'RocknRollOne'
@@ -23,7 +37,7 @@ const kTextFieldInputDecoration = InputDecoration(
 const kpasswprdFieldInputDecoration = InputDecoration(
     filled: true,
     fillColor: kinputColor,
-    hintText: 'Enter password',
+    hintText: 'Enter your password',
     hintStyle: TextStyle(
         color: Colors.white70,
         fontFamily: 'RocknRollOne'
