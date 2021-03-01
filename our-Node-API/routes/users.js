@@ -10,7 +10,7 @@ const LocalStrategy = require('passport-local').Strategy
 /* GET users listing. */
 router.post('/register', user.register)
 
-router.get('/:username', middleware.checkToken, user.checkUser)
+router.get('/:username', user.checkUser)
 
 
 passport.serializeUser(function(user, done){

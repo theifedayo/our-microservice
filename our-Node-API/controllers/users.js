@@ -6,6 +6,7 @@ const LocalStrategy = require('passport-local').Strategy
 
 exports.register = (req, res)=>{
 	if(!req.body.username || !req.body.email || !req.body.password){
+		console.log(req.body)
 		return res.status(400).json({
 			success: false,
 			message: "All fields are required"
@@ -19,7 +20,7 @@ exports.register = (req, res)=>{
 
 	User.createUser(newUser, (err, docs)=>{
 		if(err){
-			throw err
+			console.log(err.code)
 		}else{
 			const userToken = User.generateJWT()
 			return res.status(200).json({
@@ -37,14 +38,19 @@ exports.register = (req, res)=>{
 
 
 exports.checkUser = async(req, res)=>{
-	try{
-		await User.findOne({ username: req.params.username}, (err, result)=>{
-			return res.status(200).json({
-				username: req.params.username,
-				data: result
+	
+	await User.findOne({ username: req.params.username}, (err, result)=>{
+		if(err) return res.status(500).json({msg: err})
+		if(result !== null){
+			return res.json({
+				status: true
 			})
-		})
-	}catch{
-		res.status(500).json({message: 'Server error'})
-	}
+		}else{
+			return res.json({
+				status: false
+			})
+		}
+		
+	})
+	
 }
