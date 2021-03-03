@@ -12,7 +12,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  final splashDelay = 5;
+  final splashDelay = 30;
   Widget page = AfterSplash();
   final storage = FlutterSecureStorage();
 
