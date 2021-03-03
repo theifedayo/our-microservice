@@ -24,36 +24,59 @@ passport.deserializeUser(function(id, done){
 })
 
 
+
 //Local strategy
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({username:username}, function (err, user) {
-      if (err) { return done(err); }
+// passport.use(new LocalStrategy(
+//   function(username, password, done) {
+//     User.findOne({username:username}, function (err, user) {
+//       if (err) { return done(err); }
+//       if (!user) { 
+//       	return done(null, false); 
+//       }
+//       console.log(err)
+//       User.comparePassword(password, user.password, (err, isMatch)=>{
+// 		if(err) throw err
+// 		if(isMatch){
+// 			return done(null, user)
+// 		}else{
+// 			return done(null, false, {message: 'Invalid Password'})
+// 		}
+// 	})
+//     });
+//   }
+// ));
+
+
+
+router.post('/login', function(req, res){ //, passport.authenticate('local')
+
+	User.findOne({username:req.body.username}, function (err, user) {
+      if (err) throw err
       if (!user) { 
-      	return done(null, false); 
+      	return res.json({
+      		status: false,
+      		message: "no user found"
+      	}); 
       }
-      console.log(err)
-      User.comparePassword(password, user.password, (err, isMatch)=>{
+      
+      User.comparePassword(req.body.password, user.password, (err, isMatch)=>{
 		if(err) throw err
 		if(isMatch){
-			return done(null, user)
+			return res.status(200).json({
+				success: true,
+				message: "User logged in successfully",
+				token: User.generateJWT()
+			})
 		}else{
-			return done(null, false, {message: 'Invalid Password'})
+			return res.json({
+				status: false,
+				message: 'Invalid Password'
+			})
 		}
 	})
     });
-  }
-));
-
-
-
-router.post('/login', passport.authenticate('local'), function(req, res){
 	
-	return res.status(200).json({
-		success: true,
-		message: "User logged in successfully",
-		token: User.generateJWT()
-	})
+	
 })
 
 module.exports = router;
