@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'after_splash_screen.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'home_page.dart';
 
 class SplashScreen extends StatefulWidget {
 
@@ -11,12 +13,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
   final splashDelay = 5;
+  Widget page = AfterSplash();
+  final storage = FlutterSecureStorage();
 
   @override
   void initState() {
     super.initState();
 
     _loadWidget();
+    checkLogin();
   }
 
   _loadWidget() async {
@@ -25,7 +30,20 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigationPage() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => AfterSplash()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => page));
+  }
+
+  void checkLogin() async {
+    String token = await  storage.read(key: "token");
+    if(token != null){
+      setState(() {
+        page = HomePage();
+      });
+    }else{
+      setState(() {
+        page = AfterSplash();
+      });
+    }
   }
 
   @override

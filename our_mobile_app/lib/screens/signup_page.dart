@@ -5,6 +5,11 @@ import 'login_page.dart';
 import 'after_splash_screen.dart';
 import 'package:our_mobile_app/services/networking.dart';
 import 'package:our_mobile_app/components/state_button.dart';
+import 'home_page.dart';
+import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+
 
 
 class SignupPage extends StatefulWidget {
@@ -20,8 +25,11 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String errorText;
+  String usernameerrorText;
+  String passworderrorText;
   bool validate = false;
   bool circular = false;
+  final storage = new FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -172,16 +180,36 @@ class _SignupPageState extends State<SignupPage> {
 
                         print(data);
                         await networkHelper.post("/api/v1/register", data);
-                        setState(() {
-                          circular = false ;
-                        });
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage(message: 'Your account was successfully created!'
-                        )));
+                        Map<String, String> logindata = {
+                          "username": usernameController.text,
+                          "password": passwordController.text
+                        };
 
-                      }else{
-                        setState(() {
-                          circular = false ;
-                        });
+                        var response = await networkHelper.post("/api/v1/login", logindata);
+                        if(response.statusCode == 200 || response.statusCode == 201){
+                          Map output = json.decode(response.body);
+                          print(output);
+
+                          setState(() {
+                            validate = true;
+                            circular = false;
+                            usernameerrorText = output["usernamemessage"];
+                            passworderrorText = output["passwordmessage"];
+                          });
+                          if(output["token"] != null){
+                            await storage.write(key: "token", value: output["token"]);
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage(),), (route) => false);
+                          };
+
+                        }else{
+                          String output = json.decode(response.body);
+                          setState(() {
+                            validate = false;
+                            circular = false;
+                          });
+                        }
+
+
                     }
                     },
                   ),
