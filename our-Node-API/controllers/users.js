@@ -54,3 +54,34 @@ exports.checkUser = async(req, res)=>{
 	})
 	
 }
+
+exports.login = (req, res)=>{
+
+	User.findOne({username:req.body.username}, function (err, user) {
+      if (err) throw err
+      if (!user) { 
+      	return res.json({
+      		status: false,
+      		message: "no user found"
+      	}); 
+      }
+      
+      User.comparePassword(req.body.password, user.password, (err, isMatch)=>{
+		if(err) throw err
+		if(isMatch){
+			return res.status(200).json({
+				success: true,
+				message: "User logged in successfully",
+				token: User.generateJWT()
+			})
+		}else{
+			return res.json({
+				status: false,
+				message: 'Invalid Password'
+			})
+		}
+	})
+    });
+	
+	
+}
