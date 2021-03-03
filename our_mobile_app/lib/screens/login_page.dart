@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:our_mobile_app/constants.dart';
+import 'package:our_mobile_app/screens/home_page.dart';
 import 'after_splash_screen.dart';
+import 'package:our_mobile_app/services/networking.dart';
+import 'dart:convert';
+import 'package:our_mobile_app/components/state_button.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 
 
 class LoginPage extends StatefulWidget {
@@ -15,6 +21,17 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String signupMessage;
+  bool vis = true;
+  final globalKey = GlobalKey<FormState>();
+  NetworkHelper networkHelper = NetworkHelper();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String usernameerrorText;
+  String passworderrorText;
+  bool validate = false;
+  bool circular = false;
+  final storage = new FlutterSecureStorage();
+
 
 
   @override
@@ -72,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 ),
               ),
+
               SizedBox(height: 20,),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
@@ -87,33 +105,99 @@ class _LoginPageState extends State<LoginPage> {
 
               Container(
                 padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
-                child: TextField(
+                child: TextFormField(
+                  controller: usernameController,
                   style: TextStyle(
                       color: Colors.white70,
                       fontFamily: 'RocknRollOne'
                   ),
-                  decoration: kTextFieldInputDecoration,
+                  decoration: InputDecoration(
+                      errorText: validate ? usernameerrorText: null,
+                      filled: true,
+                      fillColor: kinputColor,
+                      hintText: 'Enter your username',
+                      hintStyle: TextStyle(
+                          color: Colors.white70,
+                          fontFamily: 'Montserrat'
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide.none
+                      )
+                  ),
 
                 ),
               ),
 
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: TextField(
+                child: TextFormField(
+                  controller: passwordController,
+                  obscureText: vis,
                   style: TextStyle(
                       color: Colors.white70,
                       fontFamily: 'RocknRollOne'
                   ),
-                  decoration: kpasswordFieldInputDecoration,
+                  decoration: InputDecoration(
+                      errorText: validate ? passworderrorText : null,
+                      suffixIcon: IconButton(icon: Icon(vis?Icons.visibility_off: Icons.visibility), onPressed: (){
+                        setState(() {
+                          vis = !vis;
+                        });
+                      },),
+                      filled: true,
+                      fillColor: kinputColor,
+                      hintText: 'Enter your password',
+                      hintStyle: TextStyle(
+                          color: Colors.white70,
+                          fontFamily: 'Montserrat'
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide.none
+                      )
+                  ),
 
                 ),
               ),
               SizedBox(
                 height: 100,
               ),
-              AfterSplashButton(buttonText: 'LOGIN', onPress: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage(
-                )));
+              circular ? stateButton(loading: CircularProgressIndicator()): AfterSplashButton(buttonText: 'LOGIN', onPress: () async {
+                setState(() {
+                  circular = true;
+                });
+                Map<String, String> data = {
+                  "username": usernameController.text,
+                  "password": passwordController.text
+                };
+
+
+                var response = await networkHelper.post("/api/v1/login", data);
+                print(data);
+
+                if(response.statusCode == 200 || response.statusCode == 201){
+                  Map output = json.decode(response.body);
+                  print(output);
+
+                  setState(() {
+                    validate = true;
+                    circular = false;
+                    usernameerrorText = output["usernamemessage"];
+                    passworderrorText = output["passwordmessage"];
+                  });
+                  if(output["token"] != null){
+                    await storage.write(key: "token", value: output["token"]);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage(),), (route) => false);
+                  };
+
+                }else{
+                  String output = json.decode(response.body);
+                  setState(() {
+                    validate = false;
+                    circular = false;
+                  });
+                }
               },)
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:our_mobile_app/constants.dart';
 import 'login_page.dart';
 import 'after_splash_screen.dart';
 import 'package:our_mobile_app/services/networking.dart';
+import 'package:our_mobile_app/components/state_button.dart';
 
 
 class SignupPage extends StatefulWidget {
@@ -152,7 +153,7 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(
                     height: 40,
                   ),
-                  circular ? SignUpButton(loading: CircularProgressIndicator()): AfterSplashButton(buttonText: 'SIGN UP', onPress: () async {
+                  circular ? stateButton(loading: CircularProgressIndicator()): AfterSplashButton(buttonText: 'SIGN UP', onPress: () async {
                     print("hello");
                     setState(() {
                       circular = true;
@@ -242,32 +243,3 @@ final signuppasswordFieldInputDecoration = InputDecoration(
 );
 
 
-
-class SignUpButton extends StatelessWidget {
-  SignUpButton({this.onPress, this.loading});
-
-  final Function onPress;
-  final Widget loading;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPress,
-      child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          color: Colors.deepPurpleAccent,
-          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-          child: Padding(
-            padding: EdgeInsets.all(1.0),
-            child: ListTile(
-                title: Center(
-                  child: loading,
-                )
-            ),
-          )
-      ),
-    );
-  }
-}

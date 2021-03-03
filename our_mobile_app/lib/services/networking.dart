@@ -18,17 +18,12 @@ class NetworkHelper{
     log.i(response.statusCode);
   }
 
-  Future<dynamic> post(String url, Map<String, String> body) async {
+  Future<http.Response> post(String url, Map<String, String> body) async {
     url = formatter(url);
     var headers = {'Content-Type': 'application/json'};
 
     var response = await http.post(url, headers: headers, body: json.encode(body));
-    if(response.statusCode == 200||response.statusCode == 201){
-      log.i(response.body);
-      return response;
-    }
-    log.d(response.body);
-    log.d(response.statusCode);
+    return response;
   }
 
   String formatter(String url){
