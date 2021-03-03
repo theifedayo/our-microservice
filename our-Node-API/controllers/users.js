@@ -62,7 +62,7 @@ exports.login = (req, res)=>{
       if (!user) { 
       	return res.json({
       		status: false,
-      		message: "no user found"
+      		usernamemessage: "no user found"
       	}); 
       }
       
@@ -77,7 +77,7 @@ exports.login = (req, res)=>{
 		}else{
 			return res.json({
 				status: false,
-				message: 'Invalid Password'
+				passwordmessage: 'Invalid Password'
 			})
 		}
 	})
