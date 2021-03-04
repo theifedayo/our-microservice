@@ -52,12 +52,17 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Center(child: Text('our 😷✌️', style: TextStyle(
-              fontFamily: 'Akaya Kanadaka',
-              fontSize: 60.0,
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-          ),))
+          Center(child: Hero(
+            tag: 'brand',
+            child: Container(
+              child: Text('our 😷✌️', style: TextStyle(
+                  fontFamily: 'Akaya Kanadaka',
+                  fontSize: 60.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+              ),),
+            ),
+          ))
         ],
       ),
     );
