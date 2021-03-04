@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
+
   @override
   void initState(){
     super.initState();
@@ -186,8 +187,12 @@ class _LoginPageState extends State<LoginPage> {
                     usernameerrorText = output["usernamemessage"];
                     passworderrorText = output["passwordmessage"];
                   });
+                  print(output["token"]);
+
                   if(output["token"] != null){
+
                     await storage.write(key: "token", value: output["token"]);
+                    print('COMPLETED----------------------');
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage(),), (route) => false);
                   };
 

@@ -12,9 +12,9 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  final splashDelay = 30;
+  final splashDelay = 5;
   Widget page = AfterSplash();
-  final storage = FlutterSecureStorage();
+  final storage = new FlutterSecureStorage();
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void checkLogin() async {
-    String token = await  storage.read(key: "token");
+    String token = await storage.read(key: "token");
     if(token != null){
       setState(() {
         page = HomePage();
