@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 import 'package:our_mobile_app/constants.dart';
 import 'home_page.dart';
+import 'network.dart';
 
 
 
@@ -45,11 +46,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 //   )));
                 // }),
                 IconButton(icon: Icon(FontAwesomeIcons.home), color: Colors.grey,iconSize: 25, onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage(
-                  )));
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage(),), (route) => false);
                 }),
                 IconButton(icon: Icon(FontAwesomeIcons.search), color: Colors.grey, iconSize: 25, onPressed: null),
-                IconButton(icon: Icon(FontAwesomeIcons.users),color: Colors.grey, iconSize: 25, onPressed: null),
+                IconButton(icon: Icon(FontAwesomeIcons.users),color: Colors.grey, iconSize: 25, onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendsNetworkPage(
+                  )));
+                }),
                 GestureDetector(
                   onTap: (){
                     print("hello");

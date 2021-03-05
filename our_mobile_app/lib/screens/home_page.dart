@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(child: Column(
         children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 28),
                 child: GestureDetector(

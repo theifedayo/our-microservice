@@ -18,15 +18,54 @@ class _FriendsNetworkPageState extends State<FriendsNetworkPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(FontAwesomeIcons.users, color: Colors.white, size: 100,),
-            ComingSoonCard(color: Colors.green, cardText: 'Hello', cardIcon: Icon(Icons.add),),
-            ComingSoonCard(color: Color(0xFFDBD4F2), cardText: 'Sup', cardIcon: Icon(Icons.wifi),)
-          ],
-        )
-      ),
+        child: ListView(
+
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 28),
+                    child: GestureDetector(
+                      onTap: (){
+                        //TODO: This should go to the user's profile
+                      },
+                      child: Container(
+                        width: 50.0,
+                        height: 50.0,
+                        decoration: new BoxDecoration(
+                          color: Colors.grey,
+                          image: new DecorationImage(
+                            image: new AssetImage('images/ifedayo.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: new BorderRadius.all(new Radius.circular(50.0)),
+                          border: new Border.all(
+                            color: Colors.grey[200],
+                            width: 2.0,
+                          ),
+
+                        ),
+                      ),
+                    ),
+                  ),
+                    Text('Network Games', textAlign: TextAlign.center, style: TextStyle(
+                      fontFamily: 'Akaya Kanadaka',
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold
+                  ),),
+                    SizedBox(width: 70,), //TODO : Get the size of the screen and minus 30 for the bell space!
+                    IconButton(icon: Icon(FontAwesomeIcons.bell, color: Colors.white,),iconSize: 25, onPressed: null),
+                  ]
+              ),
+              SizedBox(height: 150,),
+              Icon(FontAwesomeIcons.users, color: Colors.white, size: 100,),
+              SizedBox(height: 200,),
+              ComingSoonCard(color: Color(0xFFDBD4F2), mainText: 'COMING SOON!'),
+            ],
+          ),
+        ),
+
       bottomNavigationBar: BottomAppBar(
         color: Color(0xFF151521),
         shape: CircularNotchedRectangle(),
@@ -39,8 +78,7 @@ class _FriendsNetworkPageState extends State<FriendsNetworkPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 IconButton(icon: Icon(FontAwesomeIcons.home, color: Colors.grey,),iconSize: 25, onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage(
-                  )));
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage(),), (route) => false);
                 }),
                 IconButton(icon: Icon(FontAwesomeIcons.search, color: Colors.grey), iconSize: 25, onPressed: null),
                 IconButton(icon: Icon(FontAwesomeIcons.users, color: Colors.white), iconSize: 25, onPressed: null),

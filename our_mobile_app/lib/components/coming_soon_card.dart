@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ComingSoonCard extends StatelessWidget {
-  ComingSoonCard({ this.color, this.cardText, this.cardIcon});
+  ComingSoonCard({ this.color, this.cardText, this.cardIcon, this.mainText});
 
   final Color color;
   final String cardText;
+  final String mainText;
   final Icon cardIcon;
 
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(28.0),
       child: Container(
         //height: 140.0,
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+        padding: EdgeInsets.symmetric(horizontal: 60.0, vertical: 30.0),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.all(
@@ -22,44 +24,21 @@ class ComingSoonCard extends StatelessWidget {
           ),
         ),
         child: Column(
+
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text(
-                  cardText,
-                  style: TextStyle(
-                      color: Colors.white,
-                      letterSpacing: 1,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "\$100,000.00",
+                  mainText,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 26.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700),
+                      fontSize: 19.0,
+                      fontFamily: 'Montserrat',
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
                 ),
-                FlatButton.icon(
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(18.0),
-                  ),
-                  color: Color(0xFF231C4F),
-                  onPressed: () {},
-                  icon: cardIcon,
-                  label: Text(
-                    "Topup",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )
+                Icon(FontAwesomeIcons.bell, color: Colors.black,)
               ],
             )
           ],
