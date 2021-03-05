@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:our_mobile_app/screens/network.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 import 'package:our_mobile_app/constants.dart';
 import 'package:our_mobile_app/screens/profile.dart';
@@ -75,7 +76,10 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 IconButton(icon: Icon(FontAwesomeIcons.home, color: Colors.white,),iconSize: 25, onPressed: null),
                 IconButton(icon: Icon(FontAwesomeIcons.search),color: Colors.grey, iconSize: 25, onPressed: null),
-                IconButton(icon: Icon(FontAwesomeIcons.users),color: Colors.grey, iconSize: 25, onPressed: null),
+                IconButton(icon: Icon(FontAwesomeIcons.users),color: Colors.grey, iconSize: 25, onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendsNetworkPage(
+                  )));
+                }),
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage(

@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:our_mobile_app/screens/home_page.dart';
+import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
+import 'package:our_mobile_app/constants.dart';
+import 'package:our_mobile_app/screens/profile.dart';
+import 'package:our_mobile_app/components/round_icon.dart';
+import 'create_talk.dart';
+import 'package:our_mobile_app/components/coming_soon_card.dart';
+
+class FriendsNetworkPage extends StatefulWidget {
+  @override
+  _FriendsNetworkPageState createState() => _FriendsNetworkPageState();
+}
+
+class _FriendsNetworkPageState extends State<FriendsNetworkPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(FontAwesomeIcons.users, color: Colors.white, size: 100,),
+            ComingSoonCard(color: Colors.green, cardText: 'Hello', cardIcon: Icon(Icons.add),),
+            ComingSoonCard(color: Color(0xFFDBD4F2), cardText: 'Sup', cardIcon: Icon(Icons.wifi),)
+          ],
+        )
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Color(0xFF151521),
+        shape: CircularNotchedRectangle(),
+        notchMargin: 12,
+        child: Container(
+          height: 60,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconButton(icon: Icon(FontAwesomeIcons.home, color: Colors.grey,),iconSize: 25, onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage(
+                  )));
+                }),
+                IconButton(icon: Icon(FontAwesomeIcons.search, color: Colors.grey), iconSize: 25, onPressed: null),
+                IconButton(icon: Icon(FontAwesomeIcons.users, color: Colors.white), iconSize: 25, onPressed: null),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage(
+                    )));
+                  },
+                  child: Container(
+                    width: 25.0,
+                    height: 25.0,
+                    decoration: new BoxDecoration(
+                      color: Colors.grey,
+                      image: new DecorationImage(
+                        image: new AssetImage('images/ifedayo.jpg'),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: new BorderRadius.all(new Radius.circular(50.0)),
+                      border: new Border.all(
+                        color: Colors.grey[200],
+                        width: 2.0,
+                      ),
+
+                    ),
+                  ),
+                )
+                // IconButton(icon: Icon(FontAwesomeIcons.user),iconSize: 25, onPressed: null)
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
