@@ -130,9 +130,9 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   TextFormField(
-                      onChanged: (value){
-                        talkValue = value;
-                      },
+                    onChanged: (value){
+                      talkValue = value;
+                    },
                     // controller: usernameController,
                     style: TextStyle(
                         color: Colors.white70,
@@ -140,10 +140,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     decoration: InputDecoration(
 
-                        // errorText: validate ? usernameerrorText: null,
+                      // errorText: validate ? usernameerrorText: null,
                         filled: true,
                         fillColor: kinputColor,
-                        hintText: 'What\'s the talk about?',
+                        hintText: 'What\'s your talk about?',
                         hintStyle: TextStyle(
                             color: Colors.white70,
                             fontFamily: 'Montserrat'

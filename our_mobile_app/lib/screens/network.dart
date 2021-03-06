@@ -58,9 +58,23 @@ class _FriendsNetworkPageState extends State<FriendsNetworkPage> {
                     IconButton(icon: Icon(FontAwesomeIcons.bell, color: Colors.white,),iconSize: 25, onPressed: null),
                   ]
               ),
-              SizedBox(height: 150,),
+              SizedBox(height: 100,),
               Icon(FontAwesomeIcons.users, color: Colors.white, size: 100,),
-              SizedBox(height: 200,),
+              SizedBox(height: 20,),
+              Text('Turn chats to games with your contacts', textAlign: TextAlign.center, style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+                color: Color(0xFFDBD4F2)
+              ),),
+              SizedBox(height: 20,),
+              Text('Invite your friends, form a group, play games and reward the winner. No loss, No gain 🚀 🚀', textAlign: TextAlign.center, style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.white70
+              ),),
+              SizedBox(height: 80,),
               ComingSoonCard(color: Color(0xFFDBD4F2), mainText: 'COMING SOON!'),
             ],
           ),
