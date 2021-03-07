@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
 		type: String
 	},
 	profileImage: {
-		type: String
+		type: String,
+		default: ""
 	},
 	email: {
 		type: String
@@ -21,6 +22,10 @@ const UserSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		bcrypt: true
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now
 	}
 })
 
@@ -54,15 +59,15 @@ module.exports.getUserById = (id, callback)=>{
 	User.findById(id, callback)
 }
 
-module.exports.generateJWT = ()=>{
-	const expiry = new Date()
-	expiry.setDate(expiry.getDate() + 7)
-	return jwt.sign({
-		_id: this._id,
-		email: this.email,
-		username: this.username,
-		exp: parseInt(expiry.getTime()/1000, 10)
-	}, process.env.JWT_SECRET)
-}
+// module.exports.generateJWT = ()=>{
+// 	const expiry = new Date()
+// 	expiry.setDate(expiry.getDate() + 7)
+// 	return jwt.sign({
+// 		_id: this._id,
+// 		email: this.email,
+// 		username: this.username,
+// 		// exp: parseInt(expiry.getTime()/1000, 10)
+// 	}, process.env.JWT_SECRET)
+// }
 
 

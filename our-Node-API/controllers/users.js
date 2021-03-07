@@ -1,6 +1,7 @@
 const User = require('../models/users')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
+const jwt = require('jsonwebtoken')
 
 
 
@@ -22,7 +23,13 @@ exports.register = (req, res)=>{
 		if(err){
 			console.log(err.code)
 		}else{
-			const userToken = User.generateJWT()
+			const expiry = new Date()
+			expiry.setDate(expiry.getDate() + 7)
+			const userToken = jwt.sign({
+			email: req.body.email,
+			username: req.body.username,
+			exp: parseInt(expiry.getTime()/1000, 10)
+		}, process.env.JWT_SECRET)
 			return res.status(200).json({
 				success: true,
 				message: "User created successfully",
@@ -69,10 +76,16 @@ exports.login = (req, res)=>{
       User.comparePassword(req.body.password, user.password, (err, isMatch)=>{
 		if(err) throw err
 		if(isMatch){
+			const expiry = new Date()
+			expiry.setDate(expiry.getDate() + 7)
 			return res.status(200).json({
 				success: true,
 				message: "User logged in successfully",
-				token: User.generateJWT()
+				token: jwt.sign({
+					email: req.body.email,
+					username: req.body.username,
+					exp: parseInt(expiry.getTime()/1000, 10)
+				}, process.env.JWT_SECRET)
 			})
 		}else{
 			return res.json({
@@ -84,4 +97,22 @@ exports.login = (req, res)=>{
     });
 	
 	
+}
+
+
+exports.editProfile = (req, res)=>{
+	try{
+		// const urlfoundUser = User.find(req.params.username)
+		User.update({username: req.decoded.username}, {$set: req.body}, function (err){
+			if(err) throw err
+			res.status(200).json({ 
+				success: true,
+				message: 'Your Profile was successfully updated'
+			})
+			
+		})
+
+	}catch(err){
+		console.log(err)
+	}
 }

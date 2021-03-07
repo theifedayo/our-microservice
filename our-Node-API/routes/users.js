@@ -14,10 +14,7 @@ router.get('/:username', user.checkUser)
 
 router.post('/login', user.login)
 
-
-
-
-
+router.post('/edit', middleware.checkToken, user.editProfile)
 
 
 

@@ -13,14 +13,16 @@ exports.checkToken = (req, res, next)=>{
 	if(token){
 		token = token.slice(7, token.length)
 		jwt.verify(token, process.env.JWT_SECRET, (err, decoded)=>{
-			if(err){
+			if(!err){
+				req.decoded = decoded
+			
+				next()
+			}else{
+				
 				return  res.json({
 					status: false,
 					message: "token is invalid"
 				})
-			}else{
-				req.decoded = decoded
-				next()
 			}
 			
 		})
