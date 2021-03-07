@@ -4,6 +4,7 @@ import 'package:slide_popup_dialog/slide_popup_dialog.dart' as slideDialog;
 import 'package:our_mobile_app/constants.dart';
 import 'home_page.dart';
 import 'network.dart';
+import 'settings.dart';
 
 
 
@@ -16,9 +17,107 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Column(
+      body: SafeArea(child: ListView(
         children: [
-          Text("Profile")
+          SizedBox(height: 20,),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
+                child: CircleAvatar(
+                  radius: 50.0,
+                  backgroundImage: AssetImage('images/ifedayo.jpg'),
+                ),
+              ),
+              SizedBox(width: 60,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 40,),
+                  Text("@Ifedayo", style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold
+                  ),),
+                  SizedBox(height: 10,),
+                  Text("IFEDAYO ADESIYAN",  style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold
+                  )),
+                  SizedBox(height: 10,),
+                  Container(
+                    width: 220,
+                    child: Text("1x Engineer 👩🏼‍🚒 🎯",style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold
+                    )),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 20,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                 Container(
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12.0),
+                        ),
+                      ),
+                      width: 150,
+                      height: 50,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("✍🏼  EDIT PROFILE", style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold
+                            ))
+                          ],
+                        ),
+                      ),
+                 ),
+                SizedBox(width: 30),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsPage(
+                    )));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12.0),
+                      ),
+                    ),
+                    width: 150,
+                    height: 50,
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("⚙️ SETTINGS", style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       )),
       // floatingActionButton: Padding(

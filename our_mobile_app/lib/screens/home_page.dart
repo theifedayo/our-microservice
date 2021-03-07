@@ -6,6 +6,7 @@ import 'package:our_mobile_app/constants.dart';
 import 'package:our_mobile_app/screens/profile.dart';
 import 'package:our_mobile_app/components/round_icon.dart';
 import 'create_talk.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String talkValue;
+  String dateValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +120,7 @@ class _HomePageState extends State<HomePage> {
       child: Expanded(
         child: ListView(
           children: [
-            Text("Create Your Talk Group✌", textAlign: TextAlign.center,style: TextStyle(
+            Text("Create Your Discussion Group✌", textAlign: TextAlign.center,style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 30.0,
                 fontFamily: 'Akaya Kanadaka',
@@ -143,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                       // errorText: validate ? usernameerrorText: null,
                         filled: true,
                         fillColor: kinputColor,
-                        hintText: 'What\'s your talk about?',
+                        hintText: 'What\'s your discussion about?',
                         hintStyle: TextStyle(
                             color: Colors.white70,
                             fontFamily: 'Montserrat'
@@ -156,13 +158,84 @@ class _HomePageState extends State<HomePage> {
 
                   ),
                   SizedBox(height: 10,),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("what time?", textAlign: TextAlign.left, style: TextStyle(
+            fontFamily: 'Akaya Kanadaka',
+            fontSize: 20
+          ),),
+        ),
+        DateTimePicker(
+          decoration: InputDecoration(
+
+            //errorText: validate ? usernameerrorText: null,
+              filled: true,
+              fillColor: kinputColor,
+              hintText: 'What\'s your talk about?',
+              hintStyle: TextStyle(
+                  color: Colors.white70,
+                  fontFamily: 'Montserrat'
+              ),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderSide: BorderSide.none
+              )
+          ),
+          type: DateTimePickerType.dateTimeSeparate,
+          dateMask: 'd MMM, yyyy',
+          initialValue: DateTime.now().toString(),
+          firstDate: DateTime(2021),
+          lastDate: DateTime(2025),
+          icon: Icon(Icons.event),
+          dateLabelText: 'Date',
+          timeLabelText: "Hour",
+          // selectableDayPredicate: (date) {
+          //   // Disable weekend days to select from the calendar
+          //   if (date.weekday == 6 || date.weekday == 7) {
+          //     return false;
+          //   }
+          //
+          //   return true;
+          // },
+          onChanged: (val){
+            dateValue = val;
+          } ,
+          validator: (val) {
+            print(val);
+            return null;
+          },
+          onSaved: (val) => print(val),
+        ),
+                  SizedBox(height: 10,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      RoundIconButton(icon: FontAwesomeIcons.check, color: Colors.green[300], iconcolor: Color(0xFFCBEEEA), onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateTalkPage(talkGroupName: talkValue,
-                        )));
-                      },)
+                      FlatButton.icon(
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(18.0),
+                        ),
+                        height: 50,
+                        color: Colors.green[300],
+                        onPressed: () {
+                          if(talkValue.length > 1 || talkValue != null){
+
+                            print(talkValue.length);
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateTalkPage(talkGroupName: talkValue, talkGroupTime: dateValue,
+                            )));
+                          }else{
+                            print("wrong");
+                          }
+                        },
+                        icon: Icon(
+                          FontAwesomeIcons.check,
+                          color: Colors.white,
+                          size: 25.0,
+                        ),
+                        label: Text(
+                          "CONTINUE ",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      )
                     ],
                   )
                 ],
