@@ -100,17 +100,27 @@ exports.login = (req, res)=>{
 }
 
 
-exports.editProfile = (req, res)=>{
+exports.editProfile = async (req, res)=>{
 	try{
-		// const urlfoundUser = User.find(req.params.username)
-		User.update({username: req.decoded.username}, {$set: req.body}, function (err){
-			if(err) throw err
-			res.status(200).json({ 
-				success: true,
-				message: 'Your Profile was successfully updated'
-			})
-			
-		})
+		var docfilePath   = req.file.path
+		await cloudinary.uploader.upload(docfilePath, (err, result)=>{
+            if(!err){
+
+				User.findOneAndUpdate({username: req.decoded.username}, {$set: {email: req.body.email, profileImage: result.url, fullName: req.body.profileImage}}, function (err){
+					if(err) throw err
+					res.status(200).json({ 
+						success: true,
+						message: 'Your Profile was successfully updated'
+					})
+					
+				})
+			}
+			fs.unlink(docfilePath, function (err) {
+                if (err) throw err;
+                // if no error, file has been deleted successfully
+                console.log('File deleted!');
+            })
+           })
 
 	}catch(err){
 		console.log(err)

@@ -19,15 +19,19 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     GestureDetector(onTap: (){
                       Navigator.pop(context);
-                    },child: Icon(Icons.arrow_back_sharp))
+                    },child: Icon(Icons.arrow_back_sharp)),
+                    SizedBox(width: 20,),
+                    Text('Settings', textAlign: TextAlign.left, style: TextStyle(
+                        fontFamily: 'Akaya Kanadaka',
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        decoration: TextDecoration.none
+                    ),),
                   ]
               ),
               SizedBox(height: 10,),
-              Text('⚙️ Settings', textAlign: TextAlign.left, style: TextStyle(
-                  fontFamily: 'Akaya Kanadaka',
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-              ),),
+
               SizedBox(height: 40,),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Text('Account', style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.bold
                     ),),
                   )
                 ],

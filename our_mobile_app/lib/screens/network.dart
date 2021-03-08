@@ -28,7 +28,8 @@ class _FriendsNetworkPageState extends State<FriendsNetworkPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 28),
                     child: GestureDetector(
                       onTap: (){
-                        //TODO: This should go to the user's profile
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage(
+                        )));
                       },
                       child: Container(
                         width: 50.0,

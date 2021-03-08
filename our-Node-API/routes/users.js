@@ -5,6 +5,7 @@ const middleware = require('../middlewares/middlewares')
 var router = express.Router();
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
+const multer = require('multer')
 
 
 /* GET users listing. */
@@ -14,7 +15,9 @@ router.get('/:username', user.checkUser)
 
 router.post('/login', user.login)
 
-router.post('/edit', middleware.checkToken, user.editProfile)
+
+var upload = multer({ dest: 'public/uploads/' })
+router.post('/edit', middleware.checkToken, upload.single('profileImage'), user.editProfile)
 
 
 

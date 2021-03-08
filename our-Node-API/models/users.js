@@ -9,6 +9,9 @@ const UserSchema = new mongoose.Schema({
 		index: true,
 		unique: true
 	},
+	fullName: {
+		type: String
+	},
 	bio: {
 		type: String
 	},

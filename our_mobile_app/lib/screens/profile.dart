@@ -5,6 +5,7 @@ import 'package:our_mobile_app/constants.dart';
 import 'home_page.dart';
 import 'network.dart';
 import 'settings.dart';
+import 'edit_profile.dart';
 
 
 
@@ -64,27 +65,35 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 Container(
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12.0),
+                 GestureDetector(
+                   onTap: (){
+                     Navigator.push(context, MaterialPageRoute(builder: (context)=>EditProfilePage(
+                     )));
+                   },
+                   child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12.0),
+                          ),
                         ),
-                      ),
-                      width: 150,
-                      height: 50,
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("✍🏼  EDIT PROFILE", style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold
-                            ))
-                          ],
+                        width: 150,
+                        height: 50,
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("✍🏼  EDIT PROFILE", style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none
+                              ))
+                            ],
+                          ),
                         ),
-                      ),
+                   ),
                  ),
                 SizedBox(width: 30),
                 GestureDetector(
@@ -108,7 +117,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           Text("⚙️ SETTINGS", style: TextStyle(
                               fontSize: 14,
                               fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              decoration: TextDecoration.none
                           ))
                         ],
                       ),
@@ -153,14 +164,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   )));
                 }),
                 GestureDetector(
-                  onTap: (){
-                    print("hello");
-                  },
                   child: Container(
                     width: 25.0,
                     height: 25.0,
                     decoration: new BoxDecoration(
-                      color: Colors.grey,
+                      color: Colors.white,
                       image: new DecorationImage(
                         image: new AssetImage('images/ifedayo.jpg'),
                         fit: BoxFit.cover,

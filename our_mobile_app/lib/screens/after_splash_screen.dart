@@ -3,6 +3,7 @@ import 'package:our_mobile_app/components/reusable_card.dart';
 import 'package:our_mobile_app/constants.dart';
 import 'signup_page.dart';
 import 'login_page.dart';
+import 'package:our_mobile_app/components/aftersplashbutton.dart';
 
 class AfterSplash extends StatefulWidget {
   @override
@@ -49,37 +50,3 @@ class _AfterSplashState extends State<AfterSplash> {
   }
 }
 
-class AfterSplashButton extends StatelessWidget {
-  AfterSplashButton({@required this.buttonText, this.onPress});
-
-  final String buttonText;
-  final Function onPress;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPress,
-      child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          color: Colors.deepPurpleAccent,
-          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-          child: Padding(
-            padding: EdgeInsets.all(1.0),
-            child: ListTile(
-                title: Center(
-                  child: Text(buttonText,
-                    style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                )
-            ),
-          )
-      ),
-    );
-  }
-}

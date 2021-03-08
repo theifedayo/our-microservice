@@ -6,6 +6,8 @@ const LocalStrategy = require('passport-local').Strategy
 const session = require('express-session')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
+const cloudinary = require('cloudinary').v2
+const multer = require('multer')
 
 
 dotenv.config({path: './config/config.env'})
@@ -31,10 +33,21 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use(express.static(path.join(__dirname, '/public/profileimages-quickdump')))
+app.use('/uploads', express.static(__dirname + '/public/profileimages-quickdump/'))
+
+var upload = multer({ dest: 'public/profileimages-quickdump/' })
 
 app.post('*', (req, res, next)=>{
   res.locals.user = req.user || null
   next()
+})
+
+//configure cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
 })
 
 //Routes
