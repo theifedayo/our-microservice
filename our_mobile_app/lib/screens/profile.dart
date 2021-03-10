@@ -6,6 +6,7 @@ import 'home_page.dart';
 import 'network.dart';
 import 'settings.dart';
 import 'edit_profile.dart';
+import 'search.dart';
 
 
 
@@ -158,7 +159,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 IconButton(icon: Icon(FontAwesomeIcons.home), color: Colors.grey,iconSize: 25, onPressed: (){
                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage(),), (route) => false);
                 }),
-                IconButton(icon: Icon(FontAwesomeIcons.search), color: Colors.grey, iconSize: 25, onPressed: null),
+                IconButton(icon: Icon(FontAwesomeIcons.search), color: Colors.grey, iconSize: 25, onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage(
+                  )));
+                }),
                 IconButton(icon: Icon(FontAwesomeIcons.users),color: Colors.grey, iconSize: 25, onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendsNetworkPage(
                   )));

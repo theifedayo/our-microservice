@@ -100,29 +100,61 @@ exports.login = (req, res)=>{
 }
 
 
+// exports.editProfile = async (req, res)=>{
+// 	try{
+// 		var docfilePath   = req.file.path
+// 		await cloudinary.uploader.upload(docfilePath, (err, result)=>{
+//             if(!err){
+
+// 				User.findOneAndUpdate({username: req.decoded.username}, {$set: {email: req.body.email, profileImage: result.url, fullName: req.body.profileImage}}, function (err){
+// 					if(err) throw err
+// 					res.status(200).json({ 
+// 						success: true,
+// 						message: 'Your Profile was successfully updated'
+// 					})
+					
+// 				})
+// 			}
+// 			fs.unlink(docfilePath, function (err) {
+//                 if (err) throw err;
+//                 // if no error, file has been deleted successfully
+//                 console.log('File deleted!');
+//             })
+//            })
+
+// 	}catch(err){
+// 		console.log(err)
+// 	}
+// }
+
+
+
 exports.editProfile = async (req, res)=>{
 	try{
-		var docfilePath   = req.file.path
-		await cloudinary.uploader.upload(docfilePath, (err, result)=>{
-            if(!err){
-
-				User.findOneAndUpdate({username: req.decoded.username}, {$set: {email: req.body.email, profileImage: result.url, fullName: req.body.profileImage}}, function (err){
-					if(err) throw err
-					res.status(200).json({ 
-						success: true,
-						message: 'Your Profile was successfully updated'
-					})
-					
-				})
-			}
-			fs.unlink(docfilePath, function (err) {
-                if (err) throw err;
-                // if no error, file has been deleted successfully
-                console.log('File deleted!');
-            })
-           })
-
+		User.findOneAndUpdate({username: req.decoded.username}, {$set: {email: req.body.email,fullName: req.body.fullName}}, function (err){
+			if(err) throw err
+			res.status(200).json({ 
+				success: true,
+				message: 'Your Profile was successfully updated'
+			})
+			
+		})
 	}catch(err){
-		console.log(err)
+
+		res.send("error")
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
