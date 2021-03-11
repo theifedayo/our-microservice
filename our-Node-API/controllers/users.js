@@ -131,7 +131,7 @@ exports.login = (req, res)=>{
 
 exports.editProfile = async (req, res)=>{
 	try{
-		User.findOneAndUpdate({username: req.decoded.username}, {$set: {email: req.body.email,fullName: req.body.fullName}}, function (err){
+		User.findOneAndUpdate({username: req.decoded.username}, {$set: {email: req.body.email,fullName: req.body.fullName, bio: req.body.bio}}, function (err){
 			if(err) throw err
 			res.status(200).json({ 
 				success: true,
